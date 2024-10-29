@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:niku/roulette.dart';
+import 'package:niku/timer.dart';
 
 void main() {
-  runApp(const Roulette());
+  runApp(CountdownTimer());
 }
 
 class MyApp extends StatelessWidget {
