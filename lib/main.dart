@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:niku/roulette.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const Roulette());
 }
 
 class MyApp extends StatelessWidget {
