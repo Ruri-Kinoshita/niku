@@ -1,6 +1,7 @@
 # niku
 
-A new Flutter project.
+情報表現基礎Ⅲのグループ２が課題で制作したゲームです．
+github名は肉ですが，都合上，肉要素は全くなくなりました．
 
 ## Getting Started
 
