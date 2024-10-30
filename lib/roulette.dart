@@ -9,13 +9,16 @@ class Roulette extends StatefulWidget {
 }
 
 class _RouletteState extends State<Roulette> {
-  final List<String> prompts = ['りんご', 'きのこ', 'くるま', 'クレープ', 'いちご'];
-  String selectedPrompt = '';
+  final List<String> firstPrompts = ['りんご', 'きのこ', 'くるま', 'クレープ', 'いちご'];
+  final List<String> secondPrompts = ['みかん', 'ぶどう', 'バナナ', 'パイナップル', 'もも'];
+  String selectedPrompt1 = '';
+  String selectedPrompt2 = '';
 
-  void getRandomPrompt() {
+  void getRandomPrompts() {
     final random = Random();
     setState(() {
-      selectedPrompt = prompts[random.nextInt(prompts.length)];
+      selectedPrompt1 = firstPrompts[random.nextInt(firstPrompts.length)];
+      selectedPrompt2 = secondPrompts[random.nextInt(secondPrompts.length)];
     });
   }
 
@@ -23,18 +26,23 @@ class _RouletteState extends State<Roulette> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(title: Text('ランダムお題表示')),
+        appBar: AppBar(title: Text('2つのランダムお題表示')),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                selectedPrompt.isEmpty ? 'お題を表示します' : selectedPrompt,
+                selectedPrompt1.isEmpty ? 'お題1を表示します' : 'お題1: $selectedPrompt1',
+                style: TextStyle(fontSize: 24),
+              ),
+              SizedBox(height: 20),
+              Text(
+                selectedPrompt2.isEmpty ? 'お題2を表示します' : 'お題2: $selectedPrompt2',
                 style: TextStyle(fontSize: 24),
               ),
               SizedBox(height: 20),
               ElevatedButton(
-                onPressed: getRandomPrompt,
+                onPressed: getRandomPrompts,
                 child: Text('お題を表示'),
               ),
             ],
