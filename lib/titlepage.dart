@@ -12,11 +12,16 @@ class _TitlePageState extends State<TitlePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Center(
-      child: ElevatedButton(
-          onPressed: () {
-            context.go('/usersetting');
-          },
-          child: Text('ユーザー登録に遷移するはず')),
+      child: Column(
+        children: [
+          Text('ここはタイトルページ，ロゴとかが入る'),
+          ElevatedButton(
+              onPressed: () {
+                context.go('/usersetting');
+              },
+              child: Text('ユーザー登録に遷移するはず')),
+        ],
+      ),
     ));
   }
 }
