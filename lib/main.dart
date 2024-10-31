@@ -3,7 +3,7 @@ import 'package:niku/roulette.dart';
 import 'package:niku/timer.dart';
 
 void main() {
-  runApp(Roulette());
+  runApp(CountdownTimer());
 }
 
 class MyApp extends StatelessWidget {

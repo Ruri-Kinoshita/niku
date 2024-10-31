@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 
+import 'package:niku/timer.dart';
+
 class Roulette extends StatefulWidget {
   const Roulette({super.key});
 
