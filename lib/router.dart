@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:niku/roulette.dart';
 import 'package:niku/timer.dart';
 import 'package:niku/titlepage.dart';
+import 'package:niku/usersetting.dart';
 
 final router = GoRouter(
   initialLocation: '/',
@@ -29,11 +30,21 @@ final router = GoRouter(
     ),
     GoRoute(
       path: '/countdowntimer',
-      name: 'rcountdoentimer',
+      name: 'countdoentimer',
       pageBuilder: (context, state) {
         return MaterialPage(
           key: state.pageKey,
           child: CountdownTimer(),
+        );
+      },
+    ),
+    GoRoute(
+      path: '/usersetting',
+      name: '/usersetting',
+      pageBuilder: (context, state) {
+        return MaterialPage(
+          key: state.pageKey,
+          child: Usersetting(),
         );
       },
     ),

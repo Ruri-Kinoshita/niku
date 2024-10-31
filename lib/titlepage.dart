@@ -14,9 +14,9 @@ class _TitlePageState extends State<TitlePage> {
         body: Center(
       child: ElevatedButton(
           onPressed: () {
-            context.go('/roulette');
+            context.go('/usersetting');
           },
-          child: Text('ルーレットに遷移する')),
+          child: Text('ユーザー登録に遷移するはず')),
     ));
   }
 }
