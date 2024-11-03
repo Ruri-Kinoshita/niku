@@ -52,7 +52,10 @@ class _UsersettingState extends State<Usersetting> {
                       final playerNames =
                           _controllers.map((c) => c.text).toList();
                       print('プレイヤー名: $playerNames');
-                      context.go('/countdowntimer');
+                      context.go(
+                        '/round1RoleSetting',
+                        extra: playerNames,
+                      );
                     }
                   : null,
               child: Text('ゲームスタート！'),
