@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'dart:math'; // ランダムにシャッフルするためにインポート
+import 'package:go_router/go_router.dart';
+import 'dart:math';
+
+import 'package:niku/titlepage.dart'; // ランダムにシャッフルするためにインポート
 
 class Round1RoleSetting extends StatefulWidget {
   final List<String> playerNames; // プレイヤー名を受け取るためのフィールド
@@ -48,7 +51,7 @@ class _Round1RoleSettingState extends State<Round1RoleSetting> {
                 // 次の画面や処理に進むためのアクション
                 print(
                     '役割が割り当てられました: ${widget.playerNames.asMap().map((i, name) => MapEntry(i, '$name: ${randomizedRoles![i]}'))}');
-                // 例: context.go('/nextscreen');
+                context.go('/roulette');
               },
               child: Text('次へ'),
             ),
