@@ -60,7 +60,8 @@ class _RouletteState extends State<Roulette> {
               SizedBox(height: 10),
               ElevatedButton(
                   onPressed: () {
-                    context.go('/countdowntimer');
+                    context.go('/countdowntimer',
+                        extra: [selectedPrompt1, selectedPrompt2]);
                   },
                   child: Text('次へ'))
             ],

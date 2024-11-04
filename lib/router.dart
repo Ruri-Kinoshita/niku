@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:niku/jaddpoint1.dart';
 import 'package:niku/roulette.dart';
 import 'package:niku/round1role.dart';
 import 'package:niku/timer.dart';
@@ -31,11 +32,17 @@ final router = GoRouter(
     ),
     GoRoute(
       path: '/countdowntimer',
-      name: 'countdoentimer',
+      name: 'countdowntimer',
       pageBuilder: (context, state) {
+        final prompts = state.extra as List<String>?;
+        final selectedPrompt1 = prompts?[0] ?? '';
+        final selectedPrompt2 = prompts?[1] ?? '';
         return MaterialPage(
           key: state.pageKey,
-          child: CountdownTimer(),
+          child: CountdownTimer(
+            selectedPrompt1: selectedPrompt1,
+            selectedPrompt2: selectedPrompt2,
+          ),
         );
       },
     ),
@@ -57,6 +64,22 @@ final router = GoRouter(
         return MaterialPage(
           key: state.pageKey,
           child: Round1RoleSetting(playerNames: playerNames ?? []),
+        );
+      },
+    ),
+    GoRoute(
+      path: '/jaddpoint1',
+      name: 'jaddpoint1',
+      pageBuilder: (context, state) {
+        final prompts = state.extra as List<String>?;
+        final selectedPrompt1 = prompts?[0] ?? '';
+        final selectedPrompt2 = prompts?[1] ?? '';
+        return MaterialPage(
+          key: state.pageKey,
+          child: Jaddpoint1(
+            selectedPrompt1: selectedPrompt1,
+            selectedPrompt2: selectedPrompt2,
+          ),
         );
       },
     ),
