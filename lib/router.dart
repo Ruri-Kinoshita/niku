@@ -60,7 +60,7 @@ final router = GoRouter(
         final playerNames = state.extra as List<String>?;
         return MaterialPage(
           key: state.pageKey,
-          child: Round1RoleSetting(playerNames: playerNames ?? []),
+          child: Round1RoleSetting(),
         );
       },
     ),

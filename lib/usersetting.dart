@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:niku/provider.dart';
+import 'package:niku/user_provider.dart';
 
 class Usersetting extends StatefulWidget {
   @override
@@ -46,20 +49,25 @@ class _UsersettingState extends State<Usersetting> {
                 ),
               ),
             SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: _isFormValid
-                  ? () {
-                      final playerNames =
-                          _controllers.map((c) => c.text).toList();
-                      print('プレイヤー名: $playerNames');
-                      context.go(
-                        '/round1RoleSetting',
-                        extra: playerNames,
-                      );
-                    }
-                  : null,
-              child: Text('ゲームスタート！'),
-            ),
+            Consumer(builder: (context, ref, _) {
+              return ElevatedButton(
+                onPressed: _isFormValid
+                    ? () {
+                        final playerNames =
+                            _controllers.map((c) => c.text).toList();
+                        print('プレイヤー名: $playerNames');
+                        var users =
+                            playerNames.map((value) => User(value)).toList();
+                        ref.read(userProviderProvider.notifier).addUser(users);
+
+                        context.go(
+                          '/round1RoleSetting',
+                        );
+                      }
+                    : null,
+                child: Text('ゲームスタート！'),
+              );
+            }),
           ],
         ),
       ),
