@@ -1,24 +1,17 @@
 import 'dart:async';
-
-import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'provider.dart'; // プロバイダをインポート
 
-class CountdownTimer extends StatefulWidget {
-  final String selectedPrompt1;
-  final String selectedPrompt2;
-
-  const CountdownTimer({
-    Key? key,
-    required this.selectedPrompt1,
-    required this.selectedPrompt2,
-  }) : super(key: key);
+class CountdownTimer extends ConsumerStatefulWidget {
+  const CountdownTimer({Key? key}) : super(key: key);
 
   @override
   _CountdownTimerState createState() => _CountdownTimerState();
 }
 
-class _CountdownTimerState extends State<CountdownTimer> {
+class _CountdownTimerState extends ConsumerState<CountdownTimer> {
   int _remainingTime = 60;
   Timer? _timer;
 
@@ -44,6 +37,8 @@ class _CountdownTimerState extends State<CountdownTimer> {
 
   @override
   Widget build(BuildContext context) {
+    final prompts = ref.watch(promptProvider); // ここで直接プロバイダを監視
+
     return Scaffold(
       appBar: AppBar(title: Text('カウントダウンタイマー')),
       body: Center(
@@ -62,8 +57,7 @@ class _CountdownTimerState extends State<CountdownTimer> {
             SizedBox(height: 50),
             ElevatedButton(
               onPressed: () {
-                context.go('/jaddpoint1',
-                    extra: [widget.selectedPrompt1, widget.selectedPrompt2]);
+                context.go('/jaddpoint1');
               },
               child: Text('次へ'),
             ),

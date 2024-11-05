@@ -1,37 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'dart:math';
+import 'provider.dart'; // プロバイダをインポート
 
-import 'package:niku/titlepage.dart';
-
-class Roulette extends StatefulWidget {
+class Roulette extends ConsumerWidget {
   const Roulette({super.key});
 
   @override
-  State<Roulette> createState() => _RouletteState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final firstPrompts = ['ぞう', 'フラミンゴ', 'ナマケモノ', 'カラス'];
+    final secondPrompts = ['ケーキ', 'オムライス', 'ドーナツ', 'プリン'];
+    final prompts = ref.watch(promptProvider); // ここで直接プロバイダを監視
+    final selectedPrompt1 = prompts.isNotEmpty ? prompts[0] : '';
+    final selectedPrompt2 = prompts.isNotEmpty ? prompts[1] : '';
+    final hasRolled = selectedPrompt1.isNotEmpty && selectedPrompt2.isNotEmpty;
 
-class _RouletteState extends State<Roulette> {
-  final List<String> firstPrompts = ['ぞう', 'フラミンゴ', 'ナマケモノ', 'カラス'];
-  final List<String> secondPrompts = ['ケーキ', 'オムライス', 'ドーナツ', 'プリン'];
-  String selectedPrompt1 = '';
-  String selectedPrompt2 = '';
-  bool hasRolled = false; // ルーレットを回したかどうかのフラグ
-
-  void getRandomPrompts() {
-    if (!hasRolled) {
-      // まだルーレットを回していない場合のみ実行
+    void getRandomPrompts() {
       final random = Random();
-      setState(() {
-        selectedPrompt1 = firstPrompts[random.nextInt(firstPrompts.length)];
-        selectedPrompt2 = secondPrompts[random.nextInt(secondPrompts.length)];
-        hasRolled = true; // 一度回したらフラグを立てる
-      });
+      ref.read(promptProvider.notifier).setPrompts(
+            firstPrompts[random.nextInt(firstPrompts.length)],
+            secondPrompts[random.nextInt(secondPrompts.length)],
+          );
     }
-  }
 
-  @override
-  Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(title: Text('2つのランダムお題表示')),
@@ -59,11 +51,13 @@ class _RouletteState extends State<Roulette> {
               ),
               SizedBox(height: 10),
               ElevatedButton(
-                  onPressed: () {
-                    context.go('/countdowntimer',
-                        extra: [selectedPrompt1, selectedPrompt2]);
-                  },
-                  child: Text('次へ'))
+                onPressed: hasRolled
+                    ? () {
+                        context.go('/countdowntimer');
+                      }
+                    : null,
+                child: Text('次へ'),
+              ),
             ],
           ),
         ),

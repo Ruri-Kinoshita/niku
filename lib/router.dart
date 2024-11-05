@@ -39,10 +39,7 @@ final router = GoRouter(
         final selectedPrompt2 = prompts?[1] ?? '';
         return MaterialPage(
           key: state.pageKey,
-          child: CountdownTimer(
-            selectedPrompt1: selectedPrompt1,
-            selectedPrompt2: selectedPrompt2,
-          ),
+          child: CountdownTimer(),
         );
       },
     ),
@@ -76,10 +73,7 @@ final router = GoRouter(
         final selectedPrompt2 = prompts?[1] ?? '';
         return MaterialPage(
           key: state.pageKey,
-          child: Jaddpoint1(
-            selectedPrompt1: selectedPrompt1,
-            selectedPrompt2: selectedPrompt2,
-          ),
+          child: Jaddpoint1(),
         );
       },
     ),
