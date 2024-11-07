@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:niku/jaddpoint1.dart';
+import 'package:niku/jadge1.dart';
+import 'package:niku/jadgeresult1.dart';
 import 'package:niku/roulette.dart';
 import 'package:niku/round1role.dart';
+import 'package:niku/teampresentation1.dart';
 import 'package:niku/timer.dart';
 import 'package:niku/titlepage.dart';
 import 'package:niku/usersetting.dart';
@@ -74,6 +77,37 @@ final router = GoRouter(
         return MaterialPage(
           key: state.pageKey,
           child: Jaddpoint1(),
+        );
+      },
+    ),
+    GoRoute(
+      path: '/teampresentation1',
+      name: 'teampresentation1',
+      pageBuilder: (context, state) {
+        return MaterialPage(
+          key: state.pageKey,
+          child: Teampresentation1(),
+        );
+      },
+    ),
+    GoRoute(
+      path: '/jadge1',
+      name: 'jadge1',
+      pageBuilder: (context, state) {
+        return MaterialPage(
+          key: state.pageKey,
+          child: Jadge1(),
+        );
+      },
+    ),
+    GoRoute(
+      path: '/jadgeresult1',
+      builder: (context, state) {
+        final results = state.extra as Map<String, String>;
+        return JadgeResult1(
+          resultA: results['resultA']!,
+          resultB: results['resultB']!,
+          resultC: results['resultC']!,
         );
       },
     ),

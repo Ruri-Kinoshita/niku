@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:niku/roulette.dart';
 import 'package:niku/user_provider.dart';
 import 'provider.dart'; // プロバイダをインポート
 
@@ -11,8 +13,9 @@ class Jaddpoint1 extends ConsumerStatefulWidget {
 }
 
 class _Jaddpoint1State extends ConsumerState<Jaddpoint1> {
-  bool _buttonPressed = false; // ボタン押下状態を追跡
-  String _judgePressed = ""; // ボタン押下状態を追跡
+  bool _buttonPressed = false; // お題表示ボタンの押下状態を追跡
+  bool _buttonDisabled = false; // 判定ボタンの押下状態を追跡
+  String _judgePressed = ""; // 判定結果の表示用
 
   @override
   Widget build(BuildContext context) {
@@ -38,10 +41,17 @@ class _Jaddpoint1State extends ConsumerState<Jaddpoint1> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ElevatedButton(
-                    onPressed: () {
-                      ref.read(userProviderProvider.notifier).addScore(2, "J");
-                      _judgePressed = "2点加算";
-                    },
+                    onPressed: _buttonDisabled
+                        ? null
+                        : () {
+                            ref
+                                .read(userProviderProvider.notifier)
+                                .addScore(2, "J");
+                            setState(() {
+                              _judgePressed = "2点加算";
+                              _buttonDisabled = true; // ボタンを無効化
+                            });
+                          },
                     child: const Text('◎'),
                     style: ElevatedButton.styleFrom(
                       shape: CircleBorder(),
@@ -49,10 +59,17 @@ class _Jaddpoint1State extends ConsumerState<Jaddpoint1> {
                     ),
                   ),
                   ElevatedButton(
-                    onPressed: () {
-                      ref.read(userProviderProvider.notifier).addScore(1, "J");
-                      _judgePressed = "1点加算";
-                    },
+                    onPressed: _buttonDisabled
+                        ? null
+                        : () {
+                            ref
+                                .read(userProviderProvider.notifier)
+                                .addScore(1, "J");
+                            setState(() {
+                              _judgePressed = "1点加算";
+                              _buttonDisabled = true; // ボタンを無効化
+                            });
+                          },
                     child: const Text('○'),
                     style: ElevatedButton.styleFrom(
                       shape: CircleBorder(),
@@ -60,9 +77,14 @@ class _Jaddpoint1State extends ConsumerState<Jaddpoint1> {
                     ),
                   ),
                   ElevatedButton(
-                    onPressed: () {
-                      _judgePressed = "ざまあ";
-                    },
+                    onPressed: _buttonDisabled
+                        ? null
+                        : () {
+                            setState(() {
+                              _judgePressed = "ざまあ";
+                              _buttonDisabled = true; // ボタンを無効化
+                            });
+                          },
                     child: const Text('×'),
                     style: ElevatedButton.styleFrom(
                       shape: CircleBorder(),
@@ -106,7 +128,12 @@ class _Jaddpoint1State extends ConsumerState<Jaddpoint1> {
                       .score
                       .toString())
                 ],
-              )
+              ),
+            ElevatedButton(
+                onPressed: () {
+                  context.go('/teampresentation1');
+                },
+                child: Text('次へ'))
           ],
         ),
       ),
