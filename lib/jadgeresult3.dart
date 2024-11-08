@@ -4,16 +4,16 @@ import 'package:go_router/go_router.dart';
 import 'package:niku/round1/provider.dart';
 import '../../user_provider.dart'; // プロバイダのインポート
 
-class jadgeresult2 extends ConsumerStatefulWidget {
+class Jadgeresult3 extends ConsumerStatefulWidget {
   final String winningTeam;
 
-  jadgeresult2({required this.winningTeam});
+  Jadgeresult3({required this.winningTeam});
 
   @override
-  _JadgeResult2State createState() => _JadgeResult2State();
+  _JadgeResult3State createState() => _JadgeResult3State();
 }
 
-class _JadgeResult2State extends ConsumerState<jadgeresult2> {
+class _JadgeResult3State extends ConsumerState<Jadgeresult3> {
   bool _buttonPressed = false; // スコア加算ボタンの押下状態を追跡
 
   // スコアを更新する処理
@@ -82,7 +82,7 @@ class _JadgeResult2State extends ConsumerState<jadgeresult2> {
                           _buttonPressed = true; // ボタンを無効化
                         });
                         // 次の画面に遷移
-                        context.push('/round3roleSetting');
+                        context.push('/finalranking');
                       },
                 child: Text('次へ'),
               );

@@ -1,26 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:niku/provider3.dart';
 import 'package:niku/round2/provider2.dart';
 import 'package:niku/round1/roulette1.dart';
 import 'package:niku/user_provider.dart';
 import '../round1/provider.dart'; // プロバイダをインポート
 
-class jaddpoint2 extends ConsumerStatefulWidget {
-  const jaddpoint2({Key? key}) : super(key: key);
+class Jaddpoint3 extends ConsumerStatefulWidget {
+  const Jaddpoint3({Key? key}) : super(key: key);
 
   @override
-  _Jaddpoint2State createState() => _Jaddpoint2State();
+  _Jaddpoint3State createState() => _Jaddpoint3State();
 }
 
-class _Jaddpoint2State extends ConsumerState<jaddpoint2> {
+class _Jaddpoint3State extends ConsumerState<Jaddpoint3> {
   bool _buttonPressed = false; // お題表示ボタンの押下状態を追跡
   bool _buttonDisabled = false; // 判定ボタンの押下状態を追跡
   String _judgePressed = ""; // 判定結果の表示用
 
   @override
   Widget build(BuildContext context) {
-    final prompts = ref.watch(promptProvider2); // お題プロバイダを監視
+    final prompts = ref.watch(promptProvider3); // お題プロバイダを監視
     final jRolePlayerName =
         ref.watch(userProviderProvider).firstWhere((User user) {
       return user.role == 'J';
@@ -132,7 +133,7 @@ class _Jaddpoint2State extends ConsumerState<jaddpoint2> {
               ),
             ElevatedButton(
                 onPressed: () {
-                  context.go('/teampresentation2');
+                  context.go('/teampresentation3');
                 },
                 child: Text('次へ'))
           ],

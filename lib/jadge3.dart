@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class Jadge2 extends StatefulWidget {
+class Jadge3 extends StatefulWidget {
   @override
-  State<Jadge2> createState() => _Jadge2State();
+  State<Jadge3> createState() => _Jadge3State();
 }
 
-class _Jadge2State extends State<Jadge2> {
+class _Jadge3State extends State<Jadge3> {
   // 各項目の選択状態を管理する変数
   String? selectedA;
   String? selectedB;
@@ -162,7 +162,7 @@ class _Jadge2State extends State<Jadge2> {
                     }
 
                     // 次の画面に結果を渡して遷移
-                    context.go('/jadgeresult2', extra: {
+                    context.go('/jadgeresult3', extra: {
                       'resultA': selectedA!,
                       'resultB': selectedB!,
                       'resultC': selectedC!,

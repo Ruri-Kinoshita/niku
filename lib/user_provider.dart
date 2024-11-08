@@ -45,6 +45,25 @@ class UserProvider extends _$UserProvider {
     state = list;
   }
 
+  void setRole3() {
+    var list = List<User>.from(state).map((User user) {
+      if (user.role == 'A1') {
+        user.role = 'B2';
+      } else if (user.role == 'A2') {
+        user.role = 'A2';
+      } else if (user.role == 'B1') {
+        user.role = 'J';
+      } else if (user.role == 'B2') {
+        user.role = 'A1';
+      } else if (user.role == 'J') {
+        user.role = 'B1';
+      }
+      return user;
+    }).toList();
+
+    state = list;
+  }
+
   void addUser(List<User> users) {
     randomizedRoles = List.from(roles);
     randomizedRoles!.shuffle(Random());

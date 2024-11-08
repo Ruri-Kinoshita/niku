@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class teampresentation2 extends StatefulWidget {
+class Teampresentation3 extends StatefulWidget {
   @override
-  State<teampresentation2> createState() => _Teampresentation2State();
+  State<Teampresentation3> createState() => _Teampresentation3State();
 }
 
-class _Teampresentation2State extends State<teampresentation2> {
+class _Teampresentation3State extends State<Teampresentation3> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +28,7 @@ class _Teampresentation2State extends State<teampresentation2> {
             const SizedBox(height: 50),
             ElevatedButton(
               onPressed: () {
-                context.go('/jadge2'); // 次の画面に遷移
+                context.go('/jadge3'); // 次の画面に遷移
               },
               child: const Text('次へ'),
             ),
