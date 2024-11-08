@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:niku/provider.dart';
+import 'package:niku/round1/provider.dart';
 import 'package:niku/user_provider.dart';
 
 class Usersetting extends StatefulWidget {
@@ -34,7 +34,7 @@ class _UsersettingState extends State<Usersetting> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('プレイヤー登録'),
+        title: const Text('プレイヤー登録'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -45,10 +45,10 @@ class _UsersettingState extends State<Usersetting> {
                 controller: _controllers[i],
                 decoration: InputDecoration(
                   labelText: 'プレイヤー ${i + 1} の名前',
-                  border: OutlineInputBorder(),
+                  border: const OutlineInputBorder(),
                 ),
               ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Consumer(builder: (context, ref, _) {
               return ElevatedButton(
                 onPressed: _isFormValid
@@ -65,7 +65,7 @@ class _UsersettingState extends State<Usersetting> {
                         );
                       }
                     : null,
-                child: Text('ゲームスタート！'),
+                child: const Text('ゲームスタート！'),
               );
             }),
           ],

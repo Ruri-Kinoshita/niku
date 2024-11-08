@@ -4,15 +4,15 @@ import 'dart:math';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:niku/round1/provider.dart';
 import 'package:niku/user_provider.dart';
-import 'provider.dart'; // プロバイダをインポート
+import '../round1/provider.dart'; // プロバイダをインポート
 
-class Round1RoleSetting extends ConsumerWidget {
+class Round2RoleSetting extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var state = ref.watch(userProviderProvider);
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Round 1 役割設定"),
+        title: const Text("Round 2 役割設定"),
       ),
       body: Column(
         children: [
@@ -29,7 +29,7 @@ class Round1RoleSetting extends ConsumerWidget {
           ),
           ElevatedButton(
             onPressed: () {
-              context.go('/roulette');
+              context.go('/roulette2');
             },
             child: Text("次へ"),
           ),

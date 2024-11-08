@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:niku/round1/provider.dart';
-import '../user_provider.dart'; // プロバイダのインポート
+import '../../user_provider.dart'; // プロバイダのインポート
 
 class JadgeResult1 extends ConsumerStatefulWidget {
   final String winningTeam;
@@ -82,7 +82,7 @@ class _JadgeResult1State extends ConsumerState<JadgeResult1> {
                           _buttonPressed = true; // ボタンを無効化
                         });
                         // 次の画面に遷移
-                        context.push('/round2roleSetting');
+                        context.push('/round3roleSetting');
                       },
                 child: Text('次へ'),
               );

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:niku/round1/roulette1.dart';
 import 'package:niku/router.dart';
-import 'package:niku/timer.dart';
+import 'package:niku/round1/timer.dart';
 
 void main() {
   runApp(

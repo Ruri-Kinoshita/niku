@@ -1,7 +1,7 @@
 import 'dart:math';
 import 'dart:ui';
 
-import 'package:niku/provider.dart';
+import 'package:niku/round1/provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'user_provider.g.dart';
@@ -23,6 +23,25 @@ class UserProvider extends _$UserProvider {
       }
       return user;
     }).toList();
+    state = list;
+  }
+
+  void setRole2() {
+    var list = List<User>.from(state).map((User user) {
+      if (user.role == 'A1') {
+        user.role = 'B1';
+      } else if (user.role == 'A2') {
+        user.role = 'J';
+      } else if (user.role == 'B1') {
+        user.role = 'A1';
+      } else if (user.role == 'B2') {
+        user.role = 'B2';
+      } else if (user.role == 'J') {
+        user.role = 'A2';
+      }
+      return user;
+    }).toList();
+
     state = list;
   }
 

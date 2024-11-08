@@ -11,22 +11,22 @@ class _Teampresentation1State extends State<Teampresentation1> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('プレゼンテーション'),
+        title: const Text('プレゼンテーション'),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
+            const Text(
               'プレゼンテーションをして下さい',
               style: TextStyle(fontSize: 24),
             ),
-            SizedBox(height: 50),
+            const SizedBox(height: 50),
             ElevatedButton(
               onPressed: () {
                 context.go('/jadge1'); // 次の画面に遷移
               },
-              child: Text('次へ'),
+              child: const Text('次へ'),
             ),
           ],
         ),

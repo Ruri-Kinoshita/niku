@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:niku/round2/provider2.dart';
 import 'dart:math';
-import 'provider.dart'; // プロバイダをインポート
+import '../round1/provider.dart'; // プロバイダをインポート
 
-class Roulette extends ConsumerWidget {
-  const Roulette({super.key});
+class Roulette2 extends ConsumerWidget {
+  const Roulette2({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final firstPrompts = ['ぞう', 'フラミンゴ', 'ナマケモノ', 'カラス'];
     final secondPrompts = ['ケーキ', 'オムライス', 'ドーナツ', 'プリン'];
-    final prompts = ref.watch(promptProvider); // ここで直接プロバイダを監視
+    final prompts = ref.watch(promptProvider2); // ここで直接プロバイダを監視
     final selectedPrompt1 = prompts.isNotEmpty ? prompts[0] : '';
     final selectedPrompt2 = prompts.isNotEmpty ? prompts[1] : '';
     final hasRolled = selectedPrompt1.isNotEmpty && selectedPrompt2.isNotEmpty;
 
     void getRandomPrompts() {
       final random = Random();
-      ref.read(promptProvider.notifier).setPrompts(
+      ref.read(promptProvider2.notifier).setPrompts(
             firstPrompts[random.nextInt(firstPrompts.length)],
             secondPrompts[random.nextInt(secondPrompts.length)],
           );
@@ -53,7 +54,7 @@ class Roulette extends ConsumerWidget {
               ElevatedButton(
                 onPressed: hasRolled
                     ? () {
-                        context.go('/countdowntimer');
+                        context.go('/countdowntimer2');
                       }
                     : null,
                 child: Text('次へ'),

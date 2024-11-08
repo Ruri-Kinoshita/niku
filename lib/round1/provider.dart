@@ -15,27 +15,6 @@ class PromptNotifier extends StateNotifier<List<String>> {
 }
 
 final roleProvider = StateProvider<String?>((ref) => null);
-// final userNotifierProvider =
-//     StateNotifierProvider.autoDispose<RoleNotifier, List>(
-//         (ref) => RoleNotifier(ref));
-
-// class RoleNotifier extends StateNotifier<List<User>> {
-//   RoleNotifier(super.state);
-
-//   void setRole(String role, String name) {
-//     var list = List<User>.from(state).map((User user) {
-//       if (user.name == name) {
-//         user.role = role;
-//       }
-//       return user;
-//     }).toList();
-//     state = list;
-//   }
-
-//   void addUser(List<User> users) {
-//     state = users;
-//   }
-// }
 
 @immutable
 class User {
