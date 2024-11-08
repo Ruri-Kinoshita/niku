@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:niku/jaddpoint1.dart';
-import 'package:niku/jadge1.dart';
-import 'package:niku/jadgeresult1.dart';
-import 'package:niku/roulette.dart';
-import 'package:niku/round1role.dart';
+import 'package:niku/round1/jaddpoint1.dart';
+import 'package:niku/round1/jadge1.dart';
+import 'package:niku/round1/jadgeresult1.dart';
+import 'package:niku/round1/roulette1.dart';
+import 'package:niku/round1/round1role.dart';
 import 'package:niku/teampresentation1.dart';
 import 'package:niku/timer.dart';
 import 'package:niku/titlepage.dart';
@@ -102,12 +102,15 @@ final router = GoRouter(
     ),
     GoRoute(
       path: '/jadgeresult1',
-      builder: (context, state) {
+      name: 'jadgeresult1',
+      pageBuilder: (context, state) {
         final results = state.extra as Map<String, String>;
-        return JadgeResult1(
-          resultA: results['resultA']!,
-          resultB: results['resultB']!,
-          resultC: results['resultC']!,
+        debugPrint(results.keys.toString());
+        return MaterialPage(
+          key: state.pageKey,
+          child: JadgeResult1(
+            winningTeam: results['winningTeam']!,
+          ),
         );
       },
     ),

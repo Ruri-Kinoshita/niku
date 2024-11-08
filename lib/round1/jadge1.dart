@@ -139,10 +139,11 @@ class _Jadge1State extends State<Jadge1> {
                   if (selectedA != null &&
                       selectedB != null &&
                       selectedC != null) {
-                    context.push('/jadgeresult1', extra: {
+                    context.go('/jadgeresult1', extra: {
                       'resultA': selectedA!,
                       'resultB': selectedB!,
                       'resultC': selectedC!,
+                      'winningTeam': selectedA!,
                     });
                   } else {
                     // すべての項目を選択するようにユーザーに通知

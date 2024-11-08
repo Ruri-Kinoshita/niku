@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:niku/roulette.dart';
+import 'package:niku/round1/roulette1.dart';
 import 'package:niku/user_provider.dart';
-import 'provider.dart'; // プロバイダをインポート
+import '../provider.dart'; // プロバイダをインポート
 
 class Jaddpoint1 extends ConsumerStatefulWidget {
   const Jaddpoint1({Key? key}) : super(key: key);

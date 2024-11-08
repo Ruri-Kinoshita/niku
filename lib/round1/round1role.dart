@@ -4,7 +4,7 @@ import 'dart:math';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:niku/provider.dart';
 import 'package:niku/user_provider.dart';
-import 'provider.dart'; // プロバイダをインポート
+import '../provider.dart'; // プロバイダをインポート
 
 class Round1RoleSetting extends ConsumerWidget {
   @override
