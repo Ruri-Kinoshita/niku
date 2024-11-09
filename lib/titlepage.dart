@@ -59,11 +59,27 @@ class _TitlePageState extends State<TitlePage> {
                   child: Card(
                     color: AppColor.ui.lightred,
                     child: Center(
-                      child: Text(
-                        '注意：ブラウザの更新ボタンは押さずに遊んでね',
-                        style: TextStyle(
-                          color: AppColor.text.darkred,
-                        ),
+                      child: Column(
+                        children: [
+                          Text(
+                            '注意',
+                            style: TextStyle(
+                              color: AppColor.text.darkred,
+                            ),
+                          ),
+                          Text(
+                            '１．フルスクリーンで遊んでね',
+                            style: TextStyle(
+                              color: AppColor.text.darkred,
+                            ),
+                          ),
+                          Text(
+                            '２．ブラウザの更新ボタンは押さずに遊んでね',
+                            style: TextStyle(
+                              color: AppColor.text.darkred,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
@@ -73,8 +89,10 @@ class _TitlePageState extends State<TitlePage> {
                       context.go('/usersetting');
                     },
                     style: ElevatedButton.styleFrom(
-                      //primary: AppColor.ui.lightgreen,
-                      minimumSize: Size(50, 10),
+                      backgroundColor: AppColor.ui.lightgreen,
+                      side: BorderSide(
+                          width: 3, color: Colors.green.withOpacity(1)),
+                      fixedSize: const Size(100, 50),
                     ),
                     child: const Text('次へ')),
               ],

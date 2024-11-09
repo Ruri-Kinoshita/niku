@@ -31,5 +31,5 @@ class _Ui {
 
   final Color lightred = const Color(0xFFFADBDA);
 
-  final Color lighgreen = const Color(0xFFDBFFD2);
+  final Color lightgreen = const Color(0xFFDBFFD2);
 }

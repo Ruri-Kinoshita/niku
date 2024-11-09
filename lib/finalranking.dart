@@ -22,41 +22,45 @@ class _FinalrankingState extends ConsumerState<Finalranking> {
       appBar: AppBar(
         title: Text('最終ランキング'),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: users.map((user) {
-            // スコアが前のユーザーと異なるかを確認
-            if (lastScore == null || user.score != lastScore) {
-              // 新しいスコアグループの開始、displayRankとcurrentRankを更新
-              displayRank = currentRank;
-            }
-            // 前回のスコアを更新し、次のユーザーの順位を1つ進める
-            lastScore = user.score;
-            currentRank++;
+      body: Stack(
+        children: [
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: users.map((user) {
+                // スコアが前のユーザーと異なるかを確認
+                if (lastScore == null || user.score != lastScore) {
+                  // 新しいスコアグループの開始、displayRankとcurrentRankを更新
+                  displayRank = currentRank;
+                }
+                // 前回のスコアを更新し、次のユーザーの順位を1つ進める
+                lastScore = user.score;
+                currentRank++;
 
-            return Padding(
-              padding: const EdgeInsets.symmetric(vertical: 4.0),
-              child: Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      // 各スコアグループの最初のユーザーのみ順位を表示
-                      '${displayRank}位　',
-                      style: TextStyle(fontSize: 24),
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 4.0),
+                  child: Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          // 各スコアグループの最初のユーザーのみ順位を表示
+                          '${displayRank}位　',
+                          style: TextStyle(fontSize: 24),
+                        ),
+                        Text(
+                          '${user.name}　${user.score}点',
+                          style: TextStyle(fontSize: 24),
+                        ),
+                      ],
                     ),
-                    Text(
-                      '${user.name}　${user.score}点',
-                      style: TextStyle(fontSize: 24),
-                    ),
-                  ],
-                ),
-              ),
-            );
-          }).toList(),
-        ),
+                  ),
+                );
+              }).toList(),
+            ),
+          ),
+        ],
       ),
     );
   }
