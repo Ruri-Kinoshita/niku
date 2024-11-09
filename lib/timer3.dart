@@ -37,6 +37,7 @@ class _CountdownTimerState extends ConsumerState<CountdownTimer3> {
     _timer?.cancel();
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
+        //TODO デバックする時は0を59にするといいかも！！
         if (_remainingTime > 0) {
           _remainingTime--;
           if (_remainingTime < 30 && thirtyremain == false) {
