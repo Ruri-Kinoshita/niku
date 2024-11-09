@@ -82,7 +82,7 @@ class _JadgeResult3State extends ConsumerState<Jadgeresult3> {
                           _buttonPressed = true; // ボタンを無効化
                         });
                         // 次の画面に遷移
-                        context.push('/finalranking');
+                        context.go('/finalranking');
                       },
                 child: Text('次へ'),
               );

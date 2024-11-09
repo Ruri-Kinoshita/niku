@@ -20,7 +20,7 @@ class roulette3 extends ConsumerWidget {
 
     void getRandomPrompts() {
       final random = Random();
-      ref.read(promptProvider2.notifier).setPrompts(
+      ref.read(promptProvider3.notifier).setPrompts(
             firstPrompts[random.nextInt(firstPrompts.length)],
             secondPrompts[random.nextInt(secondPrompts.length)],
           );
@@ -55,7 +55,7 @@ class roulette3 extends ConsumerWidget {
               ElevatedButton(
                 onPressed: hasRolled
                     ? () {
-                        context.go('/countdowntimer2');
+                        context.go('/countdowntimer3');
                       }
                     : null,
                 child: Text('次へ'),

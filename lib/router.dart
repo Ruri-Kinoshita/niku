@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:niku/finalranking.dart';
 import 'package:niku/jaddpoint3.dart';
 import 'package:niku/jadge3.dart';
 import 'package:niku/jadgeresult3.dart';
+import 'package:niku/roulette3.dart';
 import 'package:niku/round2/jaddpoint2.dart';
 import 'package:niku/round2/jadge2.dart';
 import 'package:niku/round2/jadgeresult2.dart';
@@ -223,7 +225,7 @@ final router = GoRouter(
       pageBuilder: (context, state) {
         return MaterialPage(
           key: state.pageKey,
-          child: const Roulette2(),
+          child: const roulette3(),
         );
       },
     ),
@@ -284,6 +286,16 @@ final router = GoRouter(
           child: Jadgeresult3(
             winningTeam: results['winningTeam']!,
           ),
+        );
+      },
+    ),
+    GoRoute(
+      path: '/finalranking',
+      name: 'finalranking',
+      pageBuilder: (context, state) {
+        return MaterialPage(
+          key: state.pageKey,
+          child: Finalranking(),
         );
       },
     ),
