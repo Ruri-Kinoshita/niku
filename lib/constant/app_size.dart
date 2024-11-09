@@ -22,5 +22,5 @@ class FontSize {
   static const double subheading = 18;
 
   /// ステータス表示
-  static const double status = 24;
+  static const double status = 28;
 }
