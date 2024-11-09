@@ -253,8 +253,7 @@ class _Jaddpoint1State extends ConsumerState<Jaddpoint1> {
                         : null,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColor.ui.lightgreen,
-                      side: BorderSide(
-                          width: 3, color: Colors.green.withOpacity(1)),
+                      side: BorderSide(width: 3, color: Colors.green),
                       fixedSize: const Size(100, 50),
                     ),
                     child: const Text('次へ'))
