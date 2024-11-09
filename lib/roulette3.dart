@@ -4,8 +4,10 @@ import 'package:go_router/go_router.dart';
 import 'package:niku/provider3.dart';
 import 'dart:math';
 
-import 'package:niku/round1/provider.dart';
+//import 'package:niku/round1/provider.dart';
 import 'package:niku/user_provider.dart';
+
+import 'round1/provider.dart';
 
 final secondPromptVisibilityProvider3 = StateProvider<bool>((ref) => false);
 final isAnimalPromptPressedProvider3 = StateProvider<bool>((ref) => false);
@@ -32,7 +34,7 @@ class roulette3 extends ConsumerWidget {
 
     void getRandomPrompts() {
       final random = Random();
-      ref.read(promptProvider.notifier).setPrompts(
+      ref.read(promptProvider3.notifier).setPrompts(
             firstPrompts[random.nextInt(firstPrompts.length)],
             secondPrompts[random.nextInt(secondPrompts.length)],
           );
@@ -54,7 +56,7 @@ class roulette3 extends ConsumerWidget {
         ref.watch(isTextVisibleProvider3); // Watch the text visibility state
 
     return Scaffold(
-      appBar: AppBar(title: Text('Round3 お題発表')),
+      appBar: AppBar(title: Text('Round2 お題発表')),
       body: Stack(
         children: [
           // 左側の背景画像
@@ -146,7 +148,7 @@ class roulette3 extends ConsumerWidget {
                 ElevatedButton(
                   onPressed: isAnimalPromptPressed && isFoodPromptPressed
                       ? () {
-                          context.go('/countdowntimer');
+                          context.go('/countdowntimer3');
                         }
                       : null, // Disable if both prompts are not pressed
                   child: Text('次へ'),
