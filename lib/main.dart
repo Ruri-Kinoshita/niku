@@ -23,6 +23,7 @@ class MainApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: AppColor.brand.primary),
         useMaterial3: true,
+        fontFamily: 'NotoSansJP',
       ),
       routerConfig: router, // ルーター設定
     );
