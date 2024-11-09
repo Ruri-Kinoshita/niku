@@ -49,48 +49,84 @@ class _UsersettingState extends ConsumerState<Usersetting> {
   @override
   Widget build(BuildContext context) {
     final deviceWidth = MediaQuery.of(context).size.width;
+    final deviceHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('プレイヤー登録'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Center(
-          child: Column(
-            children: [
-              SizedBox(height: 50),
-              const Text(
-                'プレイヤーを登録しよう！名前を入力してね！',
-                style: TextStyle(fontSize: FontSize.body),
+      body: Stack(
+        children: [
+          // Left background image
+          Opacity(
+            opacity: 0.7,
+            child: Container(
+              width: deviceWidth * 0.4,
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/leaf_left.png'),
+                  alignment: Alignment.bottomLeft,
+                ),
               ),
-              const SizedBox(height: 20),
-              for (int i = 0; i < 5; i++)
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10.0),
-                  child: Container(
-                    width: deviceWidth * 0.5,
-                    child: TextField(
-                      controller: _controllers[i],
-                      decoration: InputDecoration(
-                        labelText: 'プレイヤー ${i + 1} の名前',
-                        border: const OutlineInputBorder(),
-                        contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 12.0,
-                          vertical: 8.0,
+            ),
+          ),
+          // Right background image
+          Align(
+            alignment: Alignment.bottomRight,
+            child: Opacity(
+              opacity: 0.7,
+              child: Container(
+                width: deviceWidth * 0.62,
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/leaf_right.png'),
+                    alignment: Alignment.bottomRight,
+                    fit: BoxFit.contain,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          // Center content
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                children: [
+                  SizedBox(height: 50),
+                  const Text(
+                    'プレイヤーを登録しよう！名前を入力してね！',
+                    style: TextStyle(fontSize: FontSize.body),
+                  ),
+                  const SizedBox(height: 20),
+                  for (int i = 0; i < 5; i++)
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10.0),
+                      child: Container(
+                        width: deviceWidth * 0.5,
+                        child: TextField(
+                          controller: _controllers[i],
+                          decoration: InputDecoration(
+                            labelText: 'プレイヤー ${i + 1} の名前',
+                            border: const OutlineInputBorder(),
+                            contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 12.0,
+                              vertical: 8.0,
+                            ),
+                          ),
                         ),
                       ),
                     ),
+                  const SizedBox(height: 20),
+                  ElevatedButton(
+                    onPressed: _startGame, // ボタン押下時に処理を実行
+                    child: const Text('ゲームスタート！'),
                   ),
-                ),
-              //const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: _startGame, // ボタン押下時に処理を実行
-                child: const Text('ゲームスタート！'),
+                ],
               ),
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
