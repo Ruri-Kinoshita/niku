@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:niku/provider3.dart';
+import 'package:niku/roulette3.dart';
 import '../round1/provider.dart'; // プロバイダをインポート
 
 import 'dart:html' as html;
@@ -20,6 +21,12 @@ class _CountdownTimerState extends ConsumerState<CountdownTimer3> {
   bool thirtyremain = false;
   bool timeup = false;
   bool timerstart = false;
+  final Map<String, String> animalList = {
+    'ねこ': 'cat',
+    'フラミンゴ': 'flamingo',
+    'もぐら': 'mole',
+    'カラス': 'crow'
+  };
 
   void thirtyRemainSound() {
     final sound = html.AudioElement('assets/audios/ドアチャイム1.mp3');
@@ -65,6 +72,7 @@ class _CountdownTimerState extends ConsumerState<CountdownTimer3> {
   Widget build(BuildContext context) {
     final prompts = ref.watch(promptProvider3); // ここで直接プロバイダを監視
     final deviceWidth = MediaQuery.of(context).size.width;
+    final animal = ref.watch(animalProvider3);
 
     return Scaffold(
       appBar: AppBar(title: Text('タイマー')),
@@ -94,6 +102,16 @@ class _CountdownTimerState extends ConsumerState<CountdownTimer3> {
                     fit: BoxFit.contain,
                   ),
                 ),
+              ),
+            ),
+          ),
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(
+                    'assets/images/${animalList[animal]}.png'), // animalListのキーを使って画像を表示
+                alignment: Alignment.bottomLeft,
+                fit: BoxFit.contain,
               ),
             ),
           ),
