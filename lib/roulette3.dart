@@ -56,7 +56,7 @@ class roulette3 extends ConsumerWidget {
         ref.watch(isTextVisibleProvider3); // Watch the text visibility state
 
     return Scaffold(
-      appBar: AppBar(title: Text('Round2 お題発表')),
+      appBar: AppBar(title: Text('Round3 お題発表')),
       body: Stack(
         children: [
           // 左側の背景画像
