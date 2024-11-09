@@ -10,13 +10,15 @@ class Finalranking extends ConsumerStatefulWidget {
 class _FinalrankingState extends ConsumerState<Finalranking> {
   @override
   Widget build(BuildContext context) {
-    // ユーザーをスコアの降順に並び替え
+    final deviceWidth = MediaQuery.of(context).size.width;
+
+    // Sort users by descending score
     final users = ref.watch(userProviderProvider).toList()
       ..sort((a, b) => b.score.compareTo(a.score));
 
-    int currentRank = 1; // 現在の順位
-    int displayRank = 1; // 同点グループの最初の表示順位
-    int? lastScore; // 前回のスコアを追跡して同点を処理
+    int currentRank = 1; // Current rank
+    int displayRank = 1; // Display rank for tied groups
+    int? lastScore; // Track last score to handle ties
 
     return Scaffold(
       appBar: AppBar(
@@ -24,19 +26,50 @@ class _FinalrankingState extends ConsumerState<Finalranking> {
       ),
       body: Stack(
         children: [
+          // Background images layer
+          Opacity(
+            opacity: 0.7,
+            child: Container(
+              width: deviceWidth * 0.4,
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/leaf_left.png'),
+                  alignment: Alignment.bottomLeft,
+                ),
+              ),
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomRight,
+            child: Opacity(
+              opacity: 0.7,
+              child: Container(
+                width: deviceWidth * 0.62,
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/leaf_right.png'),
+                    alignment: Alignment.bottomRight,
+                    fit: BoxFit.contain,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          // Main content layer
           Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: users.map((user) {
-                // スコアが前のユーザーと異なるかを確認
+                // Update display rank for new score groups
                 if (lastScore == null || user.score != lastScore) {
-                  // 新しいスコアグループの開始、displayRankとcurrentRankを更新
                   displayRank = currentRank;
                 }
-                // 前回のスコアを更新し、次のユーザーの順位を1つ進める
                 lastScore = user.score;
                 currentRank++;
+
+                // Conditionally set font size for the first place
+                final fontSize = displayRank == 1 ? 55.0 : 40.0;
 
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 4.0),
@@ -45,13 +78,12 @@ class _FinalrankingState extends ConsumerState<Finalranking> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          // 各スコアグループの最初のユーザーのみ順位を表示
                           '${displayRank}位　',
-                          style: TextStyle(fontSize: 24),
+                          style: TextStyle(fontSize: fontSize),
                         ),
                         Text(
                           '${user.name}　${user.score}点',
-                          style: TextStyle(fontSize: 24),
+                          style: TextStyle(fontSize: fontSize),
                         ),
                       ],
                     ),
