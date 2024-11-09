@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:niku/round1/provider.dart';
+import 'package:niku/round2/roulette2.dart';
 import '../../user_provider.dart'; // プロバイダのインポート
 
 class jadgeresult2 extends ConsumerStatefulWidget {
@@ -15,6 +16,12 @@ class jadgeresult2 extends ConsumerStatefulWidget {
 
 class _JadgeResult2State extends ConsumerState<jadgeresult2> {
   bool _buttonPressed = false; // スコア加算ボタンの押下状態を追跡
+  final Map<String, String> animalList = {
+    'ねこ': 'cat',
+    'フラミンゴ': 'flamingo',
+    'もぐら': 'mole',
+    'カラス': 'crow'
+  };
 
   // スコアを更新する処理
   void addScoreToWinningTeam() {
@@ -29,6 +36,7 @@ class _JadgeResult2State extends ConsumerState<jadgeresult2> {
 
   @override
   Widget build(BuildContext context) {
+    final animal = ref.watch(animalProvider2);
     final deviceWidth = MediaQuery.of(context).size.width;
     final deviceHeight = MediaQuery.of(context).size.height;
 
@@ -84,6 +92,16 @@ class _JadgeResult2State extends ConsumerState<jadgeresult2> {
                     fit: BoxFit.contain,
                   ),
                 ),
+              ),
+            ),
+          ),
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(
+                    'assets/images/${animalList[animal]}.png'), // animalListのキーを使って画像を表示
+                alignment: Alignment.bottomLeft,
+                fit: BoxFit.contain,
               ),
             ),
           ),

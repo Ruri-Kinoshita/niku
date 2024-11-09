@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:niku/constant/app_color.dart';
 import 'package:niku/round2/provider2.dart';
 import 'package:niku/round1/roulette1.dart';
+import 'package:niku/round2/roulette2.dart';
 import 'package:niku/user_provider.dart';
 import '../round1/provider.dart'; // プロバイダをインポート
 
@@ -18,6 +19,12 @@ class _Jaddpoint2State extends ConsumerState<jaddpoint2> {
   bool _buttonPressed = false; // お題表示ボタンの押下状態を追跡
   bool _buttonDisabled = false; // 判定ボタンの押下状態を追跡
   String _judgePressed = ""; // 判定結果の表示用
+  final Map<String, String> animalList = {
+    'ねこ': 'cat',
+    'フラミンゴ': 'flamingo',
+    'もぐら': 'mole',
+    'カラス': 'crow'
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +34,7 @@ class _Jaddpoint2State extends ConsumerState<jaddpoint2> {
         ref.watch(userProviderProvider).firstWhere((User user) {
       return user.role == 'J';
     }); // "J" 役プロバイダを監視
+    final animal = ref.watch(animalProvider2);
 
     return Scaffold(
       appBar: AppBar(title: Text('選ばれたお題')),
@@ -56,6 +64,16 @@ class _Jaddpoint2State extends ConsumerState<jaddpoint2> {
                     fit: BoxFit.contain,
                   ),
                 ),
+              ),
+            ),
+          ),
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(
+                    'assets/images/${animalList[animal]}.png'), // animalListのキーを使って画像を表示
+                alignment: Alignment.bottomLeft,
+                fit: BoxFit.contain,
               ),
             ),
           ),

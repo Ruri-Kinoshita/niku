@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:niku/constant/app_color.dart';
 import 'package:niku/provider3.dart';
+import 'package:niku/roulette3.dart';
 import 'package:niku/round2/provider2.dart';
 import 'package:niku/round1/roulette1.dart';
 import 'package:niku/user_provider.dart';
@@ -19,6 +20,12 @@ class _Jaddpoint3State extends ConsumerState<Jaddpoint3> {
   bool _buttonPressed = false; // お題表示ボタンの押下状態を追跡
   bool _buttonDisabled = false; // 判定ボタンの押下状態を追跡
   String _judgePressed = ""; // 判定結果の表示用
+  final Map<String, String> animalList = {
+    'ねこ': 'cat',
+    'フラミンゴ': 'flamingo',
+    'もぐら': 'mole',
+    'カラス': 'crow'
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +35,7 @@ class _Jaddpoint3State extends ConsumerState<Jaddpoint3> {
         ref.watch(userProviderProvider).firstWhere((User user) {
       return user.role == 'J';
     }); // "J" 役プロバイダを監視
+    final animal = ref.watch(animalProvider3);
 
     return Scaffold(
       appBar: AppBar(title: Text('選ばれたお題')),
@@ -57,6 +65,16 @@ class _Jaddpoint3State extends ConsumerState<Jaddpoint3> {
                     fit: BoxFit.contain,
                   ),
                 ),
+              ),
+            ),
+          ),
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(
+                    'assets/images/${animalList[animal]}.png'), // animalListのキーを使って画像を表示
+                alignment: Alignment.bottomLeft,
+                fit: BoxFit.contain,
               ),
             ),
           ),

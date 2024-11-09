@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:niku/roulette3.dart'; // 必要なパッケージをインポート
 
-class Teampresentation3 extends StatefulWidget {
-  @override
-  State<Teampresentation3> createState() => _Teampresentation3State();
-}
+class Teampresentation3 extends ConsumerWidget {
+  final Map<String, String> animalList = {
+    'ねこ': 'cat',
+    'フラミンゴ': 'flamingo',
+    'もぐら': 'mole',
+    'カラス': 'crow'
+  };
 
-class _Teampresentation3State extends State<Teampresentation3> {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final deviceWidth = MediaQuery.of(context).size.width;
+    final animal = ref.watch(animalProvider3); // animalProvider3 を監視
     return Scaffold(
       appBar: AppBar(
         title: const Text('料理の紹介'),
@@ -43,6 +48,16 @@ class _Teampresentation3State extends State<Teampresentation3> {
                     fit: BoxFit.contain,
                   ),
                 ),
+              ),
+            ),
+          ),
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(
+                    'assets/images/${animalList[animal]}.png'), // animalListのキーを使って画像を表示
+                alignment: Alignment.bottomLeft,
+                fit: BoxFit.contain,
               ),
             ),
           ),
