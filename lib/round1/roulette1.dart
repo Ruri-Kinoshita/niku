@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:niku/first_prompts.dart';
 import 'package:niku/user_provider.dart';
 import 'dart:math';
 import 'provider.dart';
@@ -9,6 +10,7 @@ import 'provider.dart';
 final secondPromptVisibilityProvider = StateProvider<bool>((ref) => false);
 final isAnimalPromptPressedProvider = StateProvider<bool>((ref) => false);
 final isFoodPromptPressedProvider = StateProvider<bool>((ref) => false);
+final animalProvider = StateProvider<String>((ref) => '');
 final isTextVisibleProvider =
     StateProvider<bool>((ref) => false); // Add provider for text visibility
 
@@ -18,6 +20,13 @@ class Roulette extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final firstPrompts = ['ねこ', 'フラミンゴ', 'もぐら', 'カラス'];
+    //TODO animal画像コピペ
+    final Map<String, String> animalList = {
+      'ねこ': 'cat',
+      'フラミンゴ': 'flamingo',
+      'もぐら': 'mole',
+      'カラス': 'crow'
+    };
     final secondPrompts = ['ケーキ', 'オムライス', 'ドーナツ', 'プリン', 'サンドイッチ', 'カレーライス'];
     final prompts = ref.watch(promptProvider);
     final selectedPrompt1 = prompts.isNotEmpty ? prompts[0] : '';
@@ -29,16 +38,23 @@ class Roulette extends ConsumerWidget {
       return user.role == 'J';
     });
 
+    // animal の状態を監視
+    //TODO animal画像コピペ
+    final animal = ref.watch(animalProvider);
+
+    // 動物のお題をランダムに選ぶ
     void getRandomPrompts() {
       final random = Random();
-      ref.read(promptProvider.notifier).setPrompts(
-            firstPrompts[random.nextInt(firstPrompts.length)],
-            secondPrompts[random.nextInt(secondPrompts.length)],
-          );
-      ref.read(isAnimalPromptPressedProvider.state).state =
-          true; // Mark animal prompt as pressed
-      ref.read(isTextVisibleProvider.state).state =
-          true; // Show the text when animal prompt is pressed
+      final firstPrompt = firstPrompts[random.nextInt(firstPrompts.length)];
+      final secondPrompt = secondPrompts[random.nextInt(secondPrompts.length)];
+
+      ref.read(promptProvider.notifier).setPrompts(firstPrompt, secondPrompt);
+
+      // animal の値を animalProvider を通して更新
+      ref.read(animalProvider.state).state = firstPrompt;
+
+      ref.read(isAnimalPromptPressedProvider.state).state = true;
+      ref.read(isTextVisibleProvider.state).state = true;
     }
 
     void showFoodPrompt() {
@@ -86,12 +102,25 @@ class Roulette extends ConsumerWidget {
               ),
             ),
           ),
+
+          // 動物のお題が押されたとき、画像を表示
+          if (isAnimalPromptPressed && animal.isNotEmpty)
+            //TODO animal画像コピペ
+            Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/${animalList[animal]}.png'),
+                  alignment: Alignment.bottomLeft,
+                  fit: BoxFit.contain,
+                ),
+              ),
+            ),
+
           // ルーレットのUI
           Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                //SizedBox(height: 170),
                 Text(
                   selectedPrompt1.isEmpty ? '' : 'あなたたちは$selectedPrompt1になったよ！',
                   style: TextStyle(fontSize: 45),

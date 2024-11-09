@@ -12,6 +12,7 @@ import 'round1/provider.dart';
 final secondPromptVisibilityProvider3 = StateProvider<bool>((ref) => false);
 final isAnimalPromptPressedProvider3 = StateProvider<bool>((ref) => false);
 final isFoodPromptPressedProvider3 = StateProvider<bool>((ref) => false);
+final animalProvider3 = StateProvider<String>((ref) => '');
 final isTextVisibleProvider3 =
     StateProvider<bool>((ref) => false); // Add provider for text visibility
 
@@ -21,6 +22,12 @@ class roulette3 extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final firstPrompts = ['ねこ', 'フラミンゴ', 'もぐら', 'カラス'];
+    final Map<String, String> animalList = {
+      'ねこ': 'cat',
+      'フラミンゴ': 'flamingo',
+      'もぐら': 'mole',
+      'カラス': 'crow'
+    };
     final secondPrompts = ['ケーキ', 'オムライス', 'ドーナツ', 'プリン', 'サンドイッチ', 'カレーライス'];
     final prompts = ref.watch(promptProvider3);
     final selectedPrompt1 = prompts.isNotEmpty ? prompts[0] : '';
@@ -32,16 +39,20 @@ class roulette3 extends ConsumerWidget {
       return user.role == 'J';
     });
 
+    final animal = ref.watch(animalProvider3);
+
     void getRandomPrompts() {
       final random = Random();
-      ref.read(promptProvider3.notifier).setPrompts(
-            firstPrompts[random.nextInt(firstPrompts.length)],
-            secondPrompts[random.nextInt(secondPrompts.length)],
-          );
-      ref.read(isAnimalPromptPressedProvider3.state).state =
-          true; // Mark animal prompt as pressed
-      ref.read(isTextVisibleProvider3.state).state =
-          true; // Show the text when animal prompt is pressed
+      final firstPrompt = firstPrompts[random.nextInt(firstPrompts.length)];
+      final secondPrompt = secondPrompts[random.nextInt(secondPrompts.length)];
+
+      ref.read(promptProvider3.notifier).setPrompts(firstPrompt, secondPrompt);
+
+      // animal の値を animalProvider2 を通して更新
+      ref.read(animalProvider3.state).state = firstPrompt;
+
+      ref.read(isAnimalPromptPressedProvider3.state).state = true;
+      ref.read(isTextVisibleProvider3.state).state = true;
     }
 
     void showFoodPrompt() {
@@ -89,6 +100,17 @@ class roulette3 extends ConsumerWidget {
               ),
             ),
           ),
+          if (isAnimalPromptPressed && animal.isNotEmpty)
+            Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(
+                      'assets/images/${animalList[animal]}.png'), // animalListのキーを使って画像を表示
+                  alignment: Alignment.bottomLeft,
+                  fit: BoxFit.contain,
+                ),
+              ),
+            ),
           // ルーレットのUI
           Center(
             child: Column(
