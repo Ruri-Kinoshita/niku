@@ -30,6 +30,9 @@ class _Ui {
   final Color background = const Color(0xFF202124);
 
   final Color lightred = const Color(0xFFFADBDA);
-
   final Color lightgreen = const Color(0xFFDBFFD2);
+
+  final Color a = const Color(0xFFffe0e0);
+  final Color b = const Color(0xFFe0efff);
+  final Color j = const Color(0xFFefe0ff);
 }
