@@ -10,7 +10,7 @@ class FontSize {
   static const double annotation = 12;
 
   /// 本文
-  static const double body = 16;
+  static const double body = 20;
 
   /// ラベル内
   static const double label = 18;
