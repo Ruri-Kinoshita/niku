@@ -134,7 +134,7 @@ class _JadgeResult2State extends ConsumerState<jadgeresult2> {
                         : () {
                             // 勝ったチームにスコアを加算
                             addScoreToWinningTeam();
-                            ref.read(userProviderProvider.notifier).setRole2();
+                            ref.read(userProviderProvider.notifier).setRole3();
                             setState(() {
                               _buttonPressed = true; // ボタンを無効化
                             });
