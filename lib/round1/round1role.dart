@@ -69,11 +69,11 @@ class Round1RoleSetting extends ConsumerWidget {
                           height: 100,
                           decoration: BoxDecoration(
                             color: Colors.red.withOpacity(0.7),
-                            borderRadius: BorderRadius.vertical(
+                            borderRadius: const BorderRadius.vertical(
                               top: Radius.circular(10),
                             ),
                           ),
-                          child: Center(
+                          child: const Center(
                             child: Text(
                               'Aチーム',
                               style:
@@ -81,7 +81,7 @@ class Round1RoleSetting extends ConsumerWidget {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 60,
                         ),
                         for (int i = 0; i < 5; i++)
@@ -90,9 +90,9 @@ class Round1RoleSetting extends ConsumerWidget {
                               children: [
                                 Text(
                                   state[i].name,
-                                  style: TextStyle(fontSize: 30),
+                                  style: const TextStyle(fontSize: 30),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 20,
                                 ),
                               ],
@@ -100,7 +100,7 @@ class Round1RoleSetting extends ConsumerWidget {
                       ],
                     )),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 20,
                   ),
                   Container(
@@ -120,11 +120,11 @@ class Round1RoleSetting extends ConsumerWidget {
                           height: 100,
                           decoration: BoxDecoration(
                             color: Colors.purple.withOpacity(0.7),
-                            borderRadius: BorderRadius.vertical(
+                            borderRadius: const BorderRadius.vertical(
                               top: Radius.circular(10),
                             ),
                           ),
-                          child: Center(
+                          child: const Center(
                             child: Text(
                               'Judge',
                               style:
@@ -132,7 +132,7 @@ class Round1RoleSetting extends ConsumerWidget {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 60,
                         ),
                         for (int i = 0; i < 5; i++)
@@ -141,9 +141,9 @@ class Round1RoleSetting extends ConsumerWidget {
                               children: [
                                 Text(
                                   state[i].name,
-                                  style: TextStyle(fontSize: 30),
+                                  style: const TextStyle(fontSize: 30),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 20,
                                 ),
                               ],
@@ -151,7 +151,7 @@ class Round1RoleSetting extends ConsumerWidget {
                       ],
                     )),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 20,
                   ),
                   Container(
@@ -171,11 +171,11 @@ class Round1RoleSetting extends ConsumerWidget {
                           height: 100,
                           decoration: BoxDecoration(
                             color: Colors.blue.withOpacity(0.7),
-                            borderRadius: BorderRadius.vertical(
+                            borderRadius: const BorderRadius.vertical(
                               top: Radius.circular(10),
                             ),
                           ),
-                          child: Center(
+                          child: const Center(
                             child: Text(
                               'Bチーム',
                               style:
@@ -183,7 +183,7 @@ class Round1RoleSetting extends ConsumerWidget {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 60,
                         ),
                         for (int i = 0; i < 5; i++)
@@ -192,9 +192,9 @@ class Round1RoleSetting extends ConsumerWidget {
                               children: [
                                 Text(
                                   state[i].name,
-                                  style: TextStyle(fontSize: 30),
+                                  style: const TextStyle(fontSize: 30),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 20,
                                 ),
                               ],
@@ -214,7 +214,7 @@ class Round1RoleSetting extends ConsumerWidget {
                       BorderSide(width: 3, color: Colors.green.withOpacity(1)),
                   fixedSize: const Size(100, 50),
                 ),
-                child: Text("次へ"),
+                child: const Text("次へ"),
               ),
             ],
           ),
