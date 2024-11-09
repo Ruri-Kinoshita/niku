@@ -4,6 +4,15 @@ import 'package:go_router/go_router.dart';
 import 'package:niku/provider3.dart';
 import 'dart:math';
 
+import 'package:niku/round1/provider.dart';
+import 'package:niku/user_provider.dart';
+
+final secondPromptVisibilityProvider3 = StateProvider<bool>((ref) => false);
+final isAnimalPromptPressedProvider3 = StateProvider<bool>((ref) => false);
+final isFoodPromptPressedProvider3 = StateProvider<bool>((ref) => false);
+final isTextVisibleProvider3 =
+    StateProvider<bool>((ref) => false); // Add provider for text visibility
+
 class roulette3 extends ConsumerWidget {
   const roulette3({super.key});
 
@@ -14,19 +23,38 @@ class roulette3 extends ConsumerWidget {
     final prompts = ref.watch(promptProvider3);
     final selectedPrompt1 = prompts.isNotEmpty ? prompts[0] : '';
     final selectedPrompt2 = prompts.isNotEmpty ? prompts[1] : '';
-    final hasRolled = selectedPrompt1.isNotEmpty && selectedPrompt2.isNotEmpty;
     final deviceWidth = MediaQuery.of(context).size.width;
+    final deviceHeight = MediaQuery.of(context).size.height;
+    final jRolePlayerName =
+        ref.watch(userProviderProvider).firstWhere((User user) {
+      return user.role == 'J';
+    });
 
     void getRandomPrompts() {
       final random = Random();
-      ref.read(promptProvider3.notifier).setPrompts(
+      ref.read(promptProvider.notifier).setPrompts(
             firstPrompts[random.nextInt(firstPrompts.length)],
             secondPrompts[random.nextInt(secondPrompts.length)],
           );
+      ref.read(isAnimalPromptPressedProvider3.state).state =
+          true; // Mark animal prompt as pressed
+      ref.read(isTextVisibleProvider3.state).state =
+          true; // Show the text when animal prompt is pressed
     }
 
+    void showFoodPrompt() {
+      ref.read(secondPromptVisibilityProvider3.state).state = true;
+      ref.read(isFoodPromptPressedProvider3.state).state =
+          true; // Mark food prompt as pressed
+    }
+
+    final isAnimalPromptPressed = ref.watch(isAnimalPromptPressedProvider3);
+    final isFoodPromptPressed = ref.watch(isFoodPromptPressedProvider3);
+    final isTextVisible =
+        ref.watch(isTextVisibleProvider3); // Watch the text visibility state
+
     return Scaffold(
-      appBar: AppBar(title: const Text('Round3 お題発表')),
+      appBar: AppBar(title: Text('Round3 お題発表')),
       body: Stack(
         children: [
           // 左側の背景画像
@@ -62,18 +90,14 @@ class roulette3 extends ConsumerWidget {
           // ルーレットのUI
           Center(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const SizedBox(height: 170),
+                //SizedBox(height: 170),
                 Text(
                   selectedPrompt1.isEmpty ? '' : 'あなたたちは$selectedPrompt1になったよ！',
-                  style: const TextStyle(fontSize: 45),
+                  style: TextStyle(fontSize: 45),
                 ),
-                const SizedBox(height: 20),
-                Text(
-                  selectedPrompt2.isEmpty ? '' : 'お題の料理は$selectedPrompt2！',
-                  style: const TextStyle(fontSize: 45),
-                ),
+                SizedBox(height: 20),
 
                 // ファーストプロンプトごとの説明文を枠で囲む
                 if (selectedPrompt1 == 'フラミンゴ')
@@ -84,21 +108,48 @@ class roulette3 extends ConsumerWidget {
                   buildPromptBox('もぐらは太陽の光が苦手...\nサングラスをつけて料理を作ろう！'),
                 if (selectedPrompt1 == 'カラス')
                   buildPromptBox('カラスはくちばしを上手に使うのが得意だよ！\n手をくちばしの形にして料理を作ってね'),
-                const SizedBox(height: 20),
 
-                const SizedBox(height: 40),
+                SizedBox(height: 40),
                 ElevatedButton(
-                  onPressed: hasRolled ? null : getRandomPrompts,
-                  child: const Text('お題を発表'),
+                  onPressed: isAnimalPromptPressed
+                      ? null
+                      : getRandomPrompts, // Disable if animal prompt pressed
+                  child: Text('動物を発表'),
                 ),
-                const SizedBox(height: 10),
+                if (isTextVisible == false)
+                  SizedBox(
+                    height: 30,
+                  ),
+
+                // Show text after animal prompt button is pressed
+                if (isTextVisible)
+                  Text(
+                    '料理を発表するよ！審査員の${jRolePlayerName.name ?? '〇〇'}さんが画面を見ないようにして\n下のボタンを押してね',
+                    style: TextStyle(fontSize: 28),
+                    textAlign: TextAlign.center,
+                  ),
+
+                // Button to show the second prompt
                 ElevatedButton(
-                  onPressed: hasRolled
+                  onPressed: isAnimalPromptPressed
+                      ? showFoodPrompt
+                      : null, // Disable if animal prompt not pressed
+                  child: Text('お題の料理を発表'),
+                ),
+                // Show second prompt if visibility is true
+                if (ref.watch(secondPromptVisibilityProvider3.state).state)
+                  Text(
+                    selectedPrompt2.isEmpty ? '' : 'お題の料理は$selectedPrompt2！',
+                    style: TextStyle(fontSize: 45),
+                  ),
+                SizedBox(height: 50),
+                ElevatedButton(
+                  onPressed: isAnimalPromptPressed && isFoodPromptPressed
                       ? () {
-                          context.go('/countdowntimer3');
+                          context.go('/countdowntimer');
                         }
-                      : null,
-                  child: const Text('次へ'),
+                      : null, // Disable if both prompts are not pressed
+                  child: Text('次へ'),
                 ),
               ],
             ),
@@ -120,7 +171,7 @@ class roulette3 extends ConsumerWidget {
         ),
         child: Text(
           text,
-          style: const TextStyle(fontSize: 28, color: Colors.redAccent),
+          style: TextStyle(fontSize: 28, color: Colors.redAccent),
           textAlign: TextAlign.center,
         ),
       ),

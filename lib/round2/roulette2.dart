@@ -2,8 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:niku/round2/provider2.dart';
+import 'package:niku/user_provider.dart';
 import 'dart:math';
 import '../round1/provider.dart'; // プロバイダをインポート
+
+final secondPromptVisibilityProvider2 = StateProvider<bool>((ref) => false);
+final isAnimalPromptPressedProvider2 = StateProvider<bool>((ref) => false);
+final isFoodPromptPressedProvider2 = StateProvider<bool>((ref) => false);
+final isTextVisibleProvider2 =
+    StateProvider<bool>((ref) => false); // Add provider for text visibility
 
 class Roulette2 extends ConsumerWidget {
   const Roulette2({super.key});
@@ -15,9 +22,12 @@ class Roulette2 extends ConsumerWidget {
     final prompts = ref.watch(promptProvider2);
     final selectedPrompt1 = prompts.isNotEmpty ? prompts[0] : '';
     final selectedPrompt2 = prompts.isNotEmpty ? prompts[1] : '';
-    final hasRolled = selectedPrompt1.isNotEmpty && selectedPrompt2.isNotEmpty;
     final deviceWidth = MediaQuery.of(context).size.width;
     final deviceHeight = MediaQuery.of(context).size.height;
+    final jRolePlayerName =
+        ref.watch(userProviderProvider).firstWhere((User user) {
+      return user.role == 'J';
+    });
 
     void getRandomPrompts() {
       final random = Random();
@@ -25,7 +35,22 @@ class Roulette2 extends ConsumerWidget {
             firstPrompts[random.nextInt(firstPrompts.length)],
             secondPrompts[random.nextInt(secondPrompts.length)],
           );
+      ref.read(isAnimalPromptPressedProvider2.state).state =
+          true; // Mark animal prompt as pressed
+      ref.read(isTextVisibleProvider2.state).state =
+          true; // Show the text when animal prompt is pressed
     }
+
+    void showFoodPrompt() {
+      ref.read(secondPromptVisibilityProvider2.state).state = true;
+      ref.read(isFoodPromptPressedProvider2.state).state =
+          true; // Mark food prompt as pressed
+    }
+
+    final isAnimalPromptPressed = ref.watch(isAnimalPromptPressedProvider2);
+    final isFoodPromptPressed = ref.watch(isFoodPromptPressedProvider2);
+    final isTextVisible =
+        ref.watch(isTextVisibleProvider2); // Watch the text visibility state
 
     return Scaffold(
       appBar: AppBar(title: Text('Round2 お題発表')),
@@ -64,18 +89,14 @@ class Roulette2 extends ConsumerWidget {
           // ルーレットのUI
           Center(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(height: 170),
+                //SizedBox(height: 170),
                 Text(
                   selectedPrompt1.isEmpty ? '' : 'あなたたちは$selectedPrompt1になったよ！',
                   style: TextStyle(fontSize: 45),
                 ),
                 SizedBox(height: 20),
-                Text(
-                  selectedPrompt2.isEmpty ? '' : 'お題の料理は$selectedPrompt2！',
-                  style: TextStyle(fontSize: 45),
-                ),
 
                 // ファーストプロンプトごとの説明文を枠で囲む
                 if (selectedPrompt1 == 'フラミンゴ')
@@ -86,20 +107,47 @@ class Roulette2 extends ConsumerWidget {
                   buildPromptBox('もぐらは太陽の光が苦手...\nサングラスをつけて料理を作ろう！'),
                 if (selectedPrompt1 == 'カラス')
                   buildPromptBox('カラスはくちばしを上手に使うのが得意だよ！\n手をくちばしの形にして料理を作ってね'),
-                SizedBox(height: 20),
 
                 SizedBox(height: 40),
                 ElevatedButton(
-                  onPressed: hasRolled ? null : getRandomPrompts,
-                  child: Text('お題を発表'),
+                  onPressed: isAnimalPromptPressed
+                      ? null
+                      : getRandomPrompts, // Disable if animal prompt pressed
+                  child: Text('動物を発表'),
                 ),
-                SizedBox(height: 10),
+                if (isTextVisible == false)
+                  SizedBox(
+                    height: 30,
+                  ),
+
+                // Show text after animal prompt button is pressed
+                if (isTextVisible)
+                  Text(
+                    '料理を発表するよ！審査員の${jRolePlayerName.name ?? '〇〇'}さんが画面を見ないようにして\n下のボタンを押してね',
+                    style: TextStyle(fontSize: 28),
+                    textAlign: TextAlign.center,
+                  ),
+
+                // Button to show the second prompt
                 ElevatedButton(
-                  onPressed: hasRolled
+                  onPressed: isAnimalPromptPressed
+                      ? showFoodPrompt
+                      : null, // Disable if animal prompt not pressed
+                  child: Text('お題の料理を発表'),
+                ),
+                // Show second prompt if visibility is true
+                if (ref.watch(secondPromptVisibilityProvider2.state).state)
+                  Text(
+                    selectedPrompt2.isEmpty ? '' : 'お題の料理は$selectedPrompt2！',
+                    style: TextStyle(fontSize: 45),
+                  ),
+                SizedBox(height: 50),
+                ElevatedButton(
+                  onPressed: isAnimalPromptPressed && isFoodPromptPressed
                       ? () {
                           context.go('/countdowntimer2');
                         }
-                      : null,
+                      : null, // Disable if both prompts are not pressed
                   child: Text('次へ'),
                 ),
               ],
