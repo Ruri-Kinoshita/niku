@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:niku/constant/app_color.dart';
+import 'package:niku/round1/roulette1.dart';
 import 'provider.dart'; // プロバイダをインポート
 
 import 'dart:html' as html;
@@ -38,7 +39,7 @@ class _CountdownTimerState extends ConsumerState<CountdownTimer> {
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
         //TODO デバックする時は0を59にするといいかも！！
-        if (_remainingTime > 0) {
+        if (_remainingTime > 59) {
           _remainingTime--;
           if (_remainingTime < 30 && thirtyremain == false) {
             thirtyremain = true;
@@ -65,6 +66,13 @@ class _CountdownTimerState extends ConsumerState<CountdownTimer> {
   Widget build(BuildContext context) {
     final prompts = ref.watch(promptProvider); // ここで直接プロバイダを監視
     final deviceWidth = MediaQuery.of(context).size.width;
+    final Map<String, String> animalList = {
+      'ねこ': 'cat',
+      'フラミンゴ': 'flamingo',
+      'もぐら': 'mole',
+      'カラス': 'crow'
+    };
+    final animal = ref.watch(animalProvider);
 
     return Scaffold(
       appBar: AppBar(title: const Text('タイマー')),
@@ -94,6 +102,16 @@ class _CountdownTimerState extends ConsumerState<CountdownTimer> {
                     fit: BoxFit.contain,
                   ),
                 ),
+              ),
+            ),
+          ),
+          // 動物のお題が押されたとき、画像を表示
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/${animalList[animal]}.png'),
+                alignment: Alignment.bottomLeft,
+                fit: BoxFit.contain,
               ),
             ),
           ),

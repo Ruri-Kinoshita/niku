@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:niku/round1/roulette1.dart';
 
-class Teampresentation1 extends StatefulWidget {
+class Teampresentation1 extends ConsumerWidget {
   @override
-  State<Teampresentation1> createState() => _Teampresentation1State();
-}
-
-class _Teampresentation1State extends State<Teampresentation1> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final deviceWidth = MediaQuery.of(context).size.width;
+    final Map<String, String> animalList = {
+      'ねこ': 'cat',
+      'フラミンゴ': 'flamingo',
+      'もぐら': 'mole',
+      'カラス': 'crow'
+    };
+
+    // animalProvider を監視して、動物の名前を取得
+    final animal = ref.watch(animalProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -47,6 +53,17 @@ class _Teampresentation1State extends State<Teampresentation1> {
               ),
             ),
           ),
+          // animalList に基づいて画像を表示
+          if (animal.isNotEmpty)
+            Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/${animalList[animal]}.png'),
+                  alignment: Alignment.bottomLeft,
+                  fit: BoxFit.contain,
+                ),
+              ),
+            ),
           // プレゼンテーション内容
           Center(
             child: Column(

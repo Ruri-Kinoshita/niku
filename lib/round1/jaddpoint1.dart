@@ -26,6 +26,13 @@ class _Jaddpoint1State extends ConsumerState<Jaddpoint1> {
         ref.watch(userProviderProvider).firstWhere((User user) {
       return user.role == 'J';
     }); // "J" 役プロバイダを監視
+    final Map<String, String> animalList = {
+      'ねこ': 'cat',
+      'フラミンゴ': 'flamingo',
+      'もぐら': 'mole',
+      'カラス': 'crow'
+    };
+    final animal = ref.watch(animalProvider);
 
     return Scaffold(
       appBar: AppBar(title: const Text('審査員の挑戦')),
@@ -55,6 +62,15 @@ class _Jaddpoint1State extends ConsumerState<Jaddpoint1> {
                     fit: BoxFit.contain,
                   ),
                 ),
+              ),
+            ),
+          ),
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/${animalList[animal]}.png'),
+                alignment: Alignment.bottomLeft,
+                fit: BoxFit.contain,
               ),
             ),
           ),
