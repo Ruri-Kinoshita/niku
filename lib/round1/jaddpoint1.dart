@@ -246,9 +246,11 @@ class _Jaddpoint1State extends ConsumerState<Jaddpoint1> {
                     ],
                   ),
                 ElevatedButton(
-                    onPressed: () {
-                      context.go('/teampresentation1');
-                    },
+                    onPressed: _buttonDisabled
+                        ? () {
+                            context.go('/teampresentation1');
+                          }
+                        : null,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColor.ui.lightgreen,
                       side: BorderSide(
