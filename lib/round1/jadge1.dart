@@ -76,11 +76,17 @@ class Jadge1 extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('審査員役の人以外この画面は見てはいけません！！！！！！！'),
+                Center(
+                  child: const Text(
+                    '審査員役の人以外この画面は見てはいけません！！！！！！！',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 40),
+                  ),
+                ),
                 const SizedBox(height: 20),
                 const Text(
                   '項目A: ミッションブロックへの対応力',
-                  style: TextStyle(fontSize: 18),
+                  style: TextStyle(fontSize: 30),
                 ),
                 Row(
                   children: [
@@ -108,8 +114,8 @@ class Jadge1 extends ConsumerWidget {
                 ),
                 const SizedBox(height: 20),
                 const Text(
-                  '項目B: チームワーク',
-                  style: TextStyle(fontSize: 18),
+                  '項目B: 料理の再現度',
+                  style: TextStyle(fontSize: 30),
                 ),
                 Row(
                   children: [
@@ -137,8 +143,8 @@ class Jadge1 extends ConsumerWidget {
                 ),
                 const SizedBox(height: 20),
                 const Text(
-                  '項目C: リーダーシップ',
-                  style: TextStyle(fontSize: 18),
+                  '項目C: 審査員の好み',
+                  style: TextStyle(fontSize: 30),
                 ),
                 Row(
                   children: [

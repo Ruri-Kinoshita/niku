@@ -4,19 +4,18 @@ import 'package:go_router/go_router.dart';
 import 'package:niku/constant/app_color.dart';
 import 'package:niku/provider3.dart';
 import 'package:niku/roulette3.dart';
-import 'package:niku/round2/provider2.dart';
-import 'package:niku/round1/roulette1.dart';
+
 import 'package:niku/user_provider.dart';
 import '../round1/provider.dart'; // プロバイダをインポート
 
 class Jaddpoint3 extends ConsumerStatefulWidget {
-  const Jaddpoint3({Key? key}) : super(key: key);
+  const Jaddpoint3({super.key});
 
   @override
-  _Jaddpoint3State createState() => _Jaddpoint3State();
+  Jaddpoint3State createState() => Jaddpoint3State();
 }
 
-class _Jaddpoint3State extends ConsumerState<Jaddpoint3> {
+class Jaddpoint3State extends ConsumerState<Jaddpoint3> {
   bool _buttonPressed = false; // お題表示ボタンの押下状態を追跡
   bool _buttonDisabled = false; // 判定ボタンの押下状態を追跡
   String _judgePressed = ""; // 判定結果の表示用
@@ -38,7 +37,7 @@ class _Jaddpoint3State extends ConsumerState<Jaddpoint3> {
     final animal = ref.watch(animalProvider3);
 
     return Scaffold(
-      appBar: AppBar(title: Text('選ばれたお題')),
+      appBar: AppBar(title: const Text('選ばれたお題')),
       body: Stack(
         children: [
           Opacity(
@@ -83,7 +82,7 @@ class _Jaddpoint3State extends ConsumerState<Jaddpoint3> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  '審査員役の${jRolePlayerName.name ?? '〇〇'}さん',
+                  '審査員役の${jRolePlayerName.name}さん',
                   style: const TextStyle(fontSize: 30),
                 ), // "J" 役の名前またはプレースホルダーを表示
                 const Text(
@@ -164,7 +163,7 @@ class _Jaddpoint3State extends ConsumerState<Jaddpoint3> {
                                     .addScore(2, "J");
                                 setState(() {
                                   _judgePressed =
-                                      '審査員の${jRolePlayerName.name ?? '〇〇'}さんに2ポイント加算されました。';
+                                      '審査員の${jRolePlayerName.name}さんに2ポイント加算されました。';
                                   _buttonDisabled = true; // ボタンを無効化
                                 });
                               },
@@ -195,7 +194,7 @@ class _Jaddpoint3State extends ConsumerState<Jaddpoint3> {
                                     .addScore(1, "J");
                                 setState(() {
                                   _judgePressed =
-                                      '審査員の${jRolePlayerName.name ?? '〇〇'}さんに1ポイント加算されました。';
+                                      '審査員の${jRolePlayerName.name}さんに1ポイント加算されました。';
                                   _buttonDisabled = true; // ボタンを無効化
                                 });
                               },
@@ -277,7 +276,7 @@ class _Jaddpoint3State extends ConsumerState<Jaddpoint3> {
                           width: 3, color: Colors.green.withOpacity(1)),
                       fixedSize: const Size(100, 50),
                     ),
-                    child: Text('次へ'))
+                    child: const Text('次へ'))
               ],
             ),
           ),

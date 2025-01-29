@@ -138,7 +138,7 @@ class _JadgeResult1State extends ConsumerState<JadgeResult1> {
                               _buttonPressed = true; // ボタンを無効化
                             });
                             // 次の画面に遷移
-                            context.push('/round2roleSetting');
+                            context.go('/round2roleSetting');
                           },
                     child: Text('次へ'),
                   );

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:niku/constant/app_color.dart';
 import 'package:niku/round1/roulette1.dart';
+import 'package:niku/round2/jaddpoint2.dart';
 import 'package:niku/router.dart';
 import 'package:niku/round1/timer.dart';
 

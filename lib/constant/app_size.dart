@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class AppSize {
   // final deviceWidth = MediaQuery.of(context).size.width;
   // final deviceHeight = MediaQuery.of(context).size.height;
